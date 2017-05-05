@@ -17,6 +17,10 @@ namespace DisplayTask {
   void  taskFunction ( void *pvParameter );
 
   // Generated state functions
+  void  state_Write_Text_execute      ( void );
+  void  state_Write_Text_setState     ( void );
+  void  state_Write_Text_transition   ( void );
+  void  state_Write_Text_finalization ( void );
   void  state_Draw_Circle_execute      ( void );
   void  state_Draw_Circle_setState     ( void );
   void  state_Draw_Circle_transition   ( void );

@@ -38,6 +38,30 @@ extern "C"
     const uint16_t y,
     const uint16_t width,
     const uint16_t height);
+  
+  // text functions
+  void Draw_8x12_char(
+    char* _char_matrix,
+    int x_start,
+    int y_start,
+    unsigned char clr);
+  void Draw_8x12_string(
+    char* str,
+    unsigned char len,
+    int x_start,
+    int y_start,
+    unsigned char clr);
+  void Draw_5x8_char(
+    char* _char_matrix,
+    int x_start,
+    int y_start,
+    unsigned char clr);
+  void Draw_5x8_string(
+    char* str,
+    unsigned char len,
+    int x_start,
+    int y_start,
+    unsigned char clr);
 
   // drawing functions
   void draw_rectangle(

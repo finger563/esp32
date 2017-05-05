@@ -33,6 +33,7 @@ namespace DisplayTask {
       // reset __change_state__ to false
       __change_state__ = false;
       // run the proper state function
+      state_Write_Text_execute();
       state_Draw_Circle_execute();
       state_Draw_Line_execute();
       state_Draw_Square_execute();
@@ -47,7 +48,53 @@ namespace DisplayTask {
   }
 
   // Generated state functions
-  const uint8_t state_Draw_Circle = 0;
+  const uint8_t state_Write_Text = 0;
+
+  void state_Write_Text_execute( void ) {
+    if (__change_state__ || stateLevel_0 != state_Write_Text)
+      return;
+
+    state_Write_Text_transition();
+
+    // execute all substates
+
+    if (!__change_state__) {
+      static char *text = "Hello World";
+
+      uint8_t color = rand() % 256;
+      uint16_t x = rand() % (DISPLAY_WIDTH);
+      uint16_t y = rand() % (DISPLAY_HEIGHT);
+
+      Draw_8x12_string( text, strlen(text), x, y, color);
+    }
+  }
+
+  void state_Write_Text_setState( void ) {
+    stateLevel_0 = state_Write_Text;
+  }
+
+  void state_Write_Text_transition( void ) {
+    if (__change_state__)
+      return;
+    else if ( changeState ) {
+      __change_state__ = true;
+      // run the current state's finalization function
+      state_Write_Text_finalization();
+      // set the current state to the state we are transitioning to
+      state_Draw_Square_setState();
+      // start state timer (@ next states period)
+      __state_delay__ = 100;
+      // execute the transition function
+      changeState = false;
+
+    }
+  }
+
+  void state_Write_Text_finalization( void ) {
+
+  }
+
+  const uint8_t state_Draw_Circle = 1;
 
   void state_Draw_Circle_execute( void ) {
     if (__change_state__ || stateLevel_0 != state_Draw_Circle)
@@ -91,7 +138,7 @@ namespace DisplayTask {
 
   }
 
-  const uint8_t state_Draw_Line = 1;
+  const uint8_t state_Draw_Line = 2;
 
   void state_Draw_Line_execute( void ) {
     if (__change_state__ || stateLevel_0 != state_Draw_Line)
@@ -123,7 +170,7 @@ namespace DisplayTask {
       // run the current state's finalization function
       state_Draw_Line_finalization();
       // set the current state to the state we are transitioning to
-      state_Draw_Square_setState();
+      state_Write_Text_setState();
       // start state timer (@ next states period)
       __state_delay__ = 100;
       // execute the transition function
@@ -136,7 +183,7 @@ namespace DisplayTask {
 
   }
 
-  const uint8_t state_Draw_Square = 2;
+  const uint8_t state_Draw_Square = 3;
 
   void state_Draw_Square_execute( void ) {
     if (__change_state__ || stateLevel_0 != state_Draw_Square)
