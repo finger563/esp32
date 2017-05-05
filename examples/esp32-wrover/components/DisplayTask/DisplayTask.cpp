@@ -60,8 +60,8 @@ namespace DisplayTask {
     if (!__change_state__) {
       uint8_t size = rand() % 10;
       uint8_t color = rand() % 256;
-      uint8_t x = rand() % (DISPLAY_WIDTH);
-      uint8_t y = rand() % (DISPLAY_HEIGHT);
+      uint16_t x = rand() % (DISPLAY_WIDTH);
+      uint16_t y = rand() % (DISPLAY_HEIGHT);
       draw_circle({x, y}, size, color & 0b10101010, color);
     }
   }
@@ -103,10 +103,10 @@ namespace DisplayTask {
 
     if (!__change_state__) {
       uint8_t color = rand() % 256;
-      uint8_t x1 = rand() % (DISPLAY_WIDTH);
-      uint8_t y1 = rand() % (DISPLAY_HEIGHT);
-      uint8_t x2 = rand() % (DISPLAY_WIDTH);
-      uint8_t y2 = rand() % (DISPLAY_HEIGHT);
+      uint16_t x1 = rand() % (DISPLAY_WIDTH);
+      uint16_t y1 = rand() % (DISPLAY_HEIGHT);
+      uint16_t x2 = rand() % (DISPLAY_WIDTH);
+      uint16_t y2 = rand() % (DISPLAY_HEIGHT);
       draw_line({x1, y1}, {x2, y2}, color);
     }
   }
@@ -149,8 +149,8 @@ namespace DisplayTask {
     if (!__change_state__) {
       uint8_t size = rand() % 20;
       uint8_t color = rand() % 256;
-      uint8_t x = rand() % (DISPLAY_WIDTH);
-      uint8_t y = rand() % (DISPLAY_HEIGHT);
+      uint16_t x = rand() % (DISPLAY_WIDTH);
+      uint16_t y = rand() % (DISPLAY_HEIGHT);
       draw_rectangle({x, y}, size, size, color & 0b10101010, color);
     }
   }
