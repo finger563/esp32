@@ -35,8 +35,9 @@ namespace DisplayTask {
       // run the proper state function
       state_Write_Text_execute();
       state_Draw_Circle_execute();
-      state_Draw_Line_execute();
+      state_Clear_Screen_execute();
       state_Draw_Square_execute();
+      state_Draw_Line_execute();
       // now wait if we haven't changed state
       if (!__change_state__) {
         vTaskDelay( MS_TO_TICKS(__state_delay__) );
@@ -81,11 +82,12 @@ namespace DisplayTask {
       // run the current state's finalization function
       state_Write_Text_finalization();
       // set the current state to the state we are transitioning to
-      state_Draw_Square_setState();
+      state_Clear_Screen_setState();
       // start state timer (@ next states period)
       __state_delay__ = 100;
       // execute the transition function
       changeState = false;
+          clear_vram();
 
     }
   }
@@ -138,48 +140,48 @@ namespace DisplayTask {
 
   }
 
-  const uint8_t state_Draw_Line = 2;
+  const uint8_t state_Clear_Screen = 2;
 
-  void state_Draw_Line_execute( void ) {
-    if (__change_state__ || stateLevel_0 != state_Draw_Line)
+  void state_Clear_Screen_execute( void ) {
+    if (__change_state__ || stateLevel_0 != state_Clear_Screen)
       return;
 
-    state_Draw_Line_transition();
+    state_Clear_Screen_transition();
 
     // execute all substates
 
     if (!__change_state__) {
+      static char *text = "Hello World";
+
       uint8_t color = rand() % 256;
-      uint16_t x1 = rand() % (DISPLAY_WIDTH);
-      uint16_t y1 = rand() % (DISPLAY_HEIGHT);
-      uint16_t x2 = rand() % (DISPLAY_WIDTH);
-      uint16_t y2 = rand() % (DISPLAY_HEIGHT);
-      draw_line({x1, y1}, {x2, y2}, color);
+      uint16_t x = rand() % (DISPLAY_WIDTH);
+      uint16_t y = rand() % (DISPLAY_HEIGHT);
+
+      Draw_8x12_string( text, strlen(text), x, y, color);
     }
   }
 
-  void state_Draw_Line_setState( void ) {
-    stateLevel_0 = state_Draw_Line;
+  void state_Clear_Screen_setState( void ) {
+    stateLevel_0 = state_Clear_Screen;
   }
 
-  void state_Draw_Line_transition( void ) {
+  void state_Clear_Screen_transition( void ) {
     if (__change_state__)
       return;
-    else if ( changeState ) {
+    else if ( true ) {
       __change_state__ = true;
       // run the current state's finalization function
-      state_Draw_Line_finalization();
+      state_Clear_Screen_finalization();
       // set the current state to the state we are transitioning to
-      state_Write_Text_setState();
+      state_Draw_Square_setState();
       // start state timer (@ next states period)
       __state_delay__ = 100;
       // execute the transition function
-      changeState = false;
 
     }
   }
 
-  void state_Draw_Line_finalization( void ) {
+  void state_Clear_Screen_finalization( void ) {
 
   }
 
@@ -224,6 +226,51 @@ namespace DisplayTask {
   }
 
   void state_Draw_Square_finalization( void ) {
+
+  }
+
+  const uint8_t state_Draw_Line = 4;
+
+  void state_Draw_Line_execute( void ) {
+    if (__change_state__ || stateLevel_0 != state_Draw_Line)
+      return;
+
+    state_Draw_Line_transition();
+
+    // execute all substates
+
+    if (!__change_state__) {
+      uint8_t color = rand() % 256;
+      uint16_t x1 = rand() % (DISPLAY_WIDTH);
+      uint16_t y1 = rand() % (DISPLAY_HEIGHT);
+      uint16_t x2 = rand() % (DISPLAY_WIDTH);
+      uint16_t y2 = rand() % (DISPLAY_HEIGHT);
+      draw_line({x1, y1}, {x2, y2}, color);
+    }
+  }
+
+  void state_Draw_Line_setState( void ) {
+    stateLevel_0 = state_Draw_Line;
+  }
+
+  void state_Draw_Line_transition( void ) {
+    if (__change_state__)
+      return;
+    else if ( changeState ) {
+      __change_state__ = true;
+      // run the current state's finalization function
+      state_Draw_Line_finalization();
+      // set the current state to the state we are transitioning to
+      state_Write_Text_setState();
+      // start state timer (@ next states period)
+      __state_delay__ = 100;
+      // execute the transition function
+      changeState = false;
+
+    }
+  }
+
+  void state_Draw_Line_finalization( void ) {
 
   }
 

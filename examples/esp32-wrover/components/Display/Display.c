@@ -445,7 +445,8 @@ static void  ILI9341_INITIAL ()
     LCD_WriteData(0xBE); //i   //»òÕß B1h
 
     LCD_WriteCommand(0x36);    // Memory Access Control
-    LCD_WriteData(0x28); //i //was 0x48
+    LCD_WriteData(0b01101000); // MY MX MV ML BGR MH 0 0, default 00
+    //LCD_WriteData(0x28); //i //was 0x48
 
     LCD_WriteCommand(0x3A);
     LCD_WriteData(0x55);

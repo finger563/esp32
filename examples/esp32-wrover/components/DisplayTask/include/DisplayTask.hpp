@@ -25,14 +25,18 @@ namespace DisplayTask {
   void  state_Draw_Circle_setState     ( void );
   void  state_Draw_Circle_transition   ( void );
   void  state_Draw_Circle_finalization ( void );
-  void  state_Draw_Line_execute      ( void );
-  void  state_Draw_Line_setState     ( void );
-  void  state_Draw_Line_transition   ( void );
-  void  state_Draw_Line_finalization ( void );
+  void  state_Clear_Screen_execute      ( void );
+  void  state_Clear_Screen_setState     ( void );
+  void  state_Clear_Screen_transition   ( void );
+  void  state_Clear_Screen_finalization ( void );
   void  state_Draw_Square_execute      ( void );
   void  state_Draw_Square_setState     ( void );
   void  state_Draw_Square_transition   ( void );
   void  state_Draw_Square_finalization ( void );
+  void  state_Draw_Line_execute      ( void );
+  void  state_Draw_Line_setState     ( void );
+  void  state_Draw_Line_transition   ( void );
+  void  state_Draw_Line_finalization ( void );
 
 };
 
